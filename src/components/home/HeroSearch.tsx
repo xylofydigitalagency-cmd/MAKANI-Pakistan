@@ -74,7 +74,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({ onSearch, onPostProperty
       {/* Background Image with Scrim */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/images/hero_pakistan_luxury_villa_1792498552523.jpg"
+          src="/MAKANI-Pakistan/images/hero_pakistan_luxury_villa_1792498552523.jpg"
           alt="Contemporary luxury villa in Islamabad Pakistan"
           className="w-full h-full object-cover object-center filter brightness-65 scale-102"
         />

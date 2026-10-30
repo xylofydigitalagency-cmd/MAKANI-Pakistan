@@ -19,7 +19,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   const primaryImage =
     property.images && property.images.length > 0
       ? property.images[0]
-      : '/images/hero_pakistan_luxury_villa_1792498552523.jpg';
+      : '/MAKANI-Pakistan/images/hero_pakistan_luxury_villa_1792498552523.jpg';
 
   return (
     <div
