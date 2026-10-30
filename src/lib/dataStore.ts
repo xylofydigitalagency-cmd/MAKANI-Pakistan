@@ -45,7 +45,7 @@ const INITIAL_SETTINGS: SiteSettings = {
     nayaPay: { title: '', id: '' },
   },
   contactHelpline: '',
-  contactEmail: 'xylofydigitalcompany@gmail.com',
+  contactEmail: 'xylofydigitalagency@gmail.com',
   popularCities: ['Islamabad', 'Lahore', 'Karachi', 'Rawalpindi', 'Faisalabad', 'Peshawar', 'Multan'],
 };
 

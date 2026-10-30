@@ -151,7 +151,7 @@ export const StaticPages: React.FC<StaticPageProps> = ({ page, onNavigate }) => 
 
             <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-1 text-xs">
               <span className="font-bold text-slate-900 block">Email Support</span>
-              <p className="text-emerald-700 font-mono">xylofydigitalcompany@gmail.com</p>
+              <p className="text-emerald-700 font-mono">xylofydigitalagency@gmail.com</p>
             </div>
 
             {/* Contact Form */}

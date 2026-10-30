@@ -119,7 +119,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
         <h2 className="text-lg font-bold text-slate-900">Access Denied</h2>
         <p className="text-xs text-slate-600 leading-relaxed">
-          You are signed in as <strong>{currentUser.email}</strong>. Administrator operations require authentication with the authorized account (<strong>xylofydigitalcompany@gmail.com</strong>).
+          You are signed in as <strong>{currentUser.email}</strong>. Administrator operations require authentication with the authorized account (<strong>xylofydigitalagency@gmail.com</strong>).
         </p>
       </div>
     );

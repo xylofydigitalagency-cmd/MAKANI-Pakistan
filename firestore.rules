@@ -10,7 +10,7 @@ service cloud.firestore {
     // Helper function to check if the caller is the authorized administrator
     function isAdmin() {
       return isAuthenticated() &&
-        request.auth.token.email == 'xylofydigitalcompany@gmail.com' &&
+        request.auth.token.email == 'xylofydigitalagency@gmail.com' &&
         request.auth.token.email_verified == true;
     }
     

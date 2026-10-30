@@ -13,7 +13,7 @@ export const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || 'G-Z5K0VFTYMM',
 };
 
-export const ADMIN_EMAIL = 'xylofydigitalcompany@gmail.com';
+export const ADMIN_EMAIL = 'xylofydigitalagency@gmail.com';
 
 // Check if actual configuration has been provided
 export const isFirebaseConfigured: boolean = Boolean(
