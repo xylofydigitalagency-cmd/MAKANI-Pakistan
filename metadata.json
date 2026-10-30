@@ -1,0 +1,6 @@
+{
+  "name": "Makani Pakistan - Premium Property Marketplace",
+  "description": "Find your place and make your move. Pakistan's premier real estate marketplace to buy, rent, sell, and discover verified properties in Islamabad, Lahore, Karachi, Rawalpindi, and across Pakistan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
