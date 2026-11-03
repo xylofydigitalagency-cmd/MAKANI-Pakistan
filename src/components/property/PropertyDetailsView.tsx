@@ -54,7 +54,9 @@ export const PropertyDetailsView: React.FC<PropertyDetailsViewProps> = ({
   const images = property.images && property.images.length > 0 ? property.images : [];
 
   const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(
+      `${window.location.origin}${window.location.pathname}#/property/${encodeURIComponent(property.id)}`
+    );
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
   };

@@ -28,6 +28,12 @@ import { ImageLightboxModal } from './components/modals/ImageLightboxModal';
 import { ReportModal } from './components/modals/ReportModal';
 import { ArrowRight, ShieldCheck } from 'lucide-react';
 
+// Har property ka apna link: #/property/<id>
+const getHashPropertyId = (): string | null => {
+  const m = window.location.hash.match(/^#\/property\/([^/?]+)/);
+  return m ? decodeURIComponent(m[1]) : null;
+};
+
 export default function App() {
   // Store reactive state
   const [currentUser, setCurrentUser] = useState<AppUser | null>(dataStore.getCurrentUser());
@@ -36,7 +42,9 @@ export default function App() {
   const [reviews, setReviews] = useState(dataStore.getApprovedReviews());
 
   // Navigation router state
-  const [currentView, setCurrentView] = useState<string>('home');
+  const [currentView, setCurrentView] = useState<string>(getHashPropertyId() ? 'property-details' : 'home');
+  const [hashPropertyId, setHashPropertyId] = useState<string | null>(getHashPropertyId());
+  const resolvedIdRef = React.useRef<string | null>(null);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [searchFilters, setSearchFilters] = useState<any>({});
   const [dashboardTab, setDashboardTab] = useState<string>('properties');
@@ -60,6 +68,40 @@ export default function App() {
     return unsubscribe;
   }, []);
 
+  // Browser back/forward ya link paste hone par hash parho
+  useEffect(() => {
+    const onHashChange = () => {
+      const id = getHashPropertyId();
+      setHashPropertyId(id);
+      if (!id) setCurrentView((v) => (v === 'property-details' ? 'search' : v));
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  // Link se aayi property jaise hi Firestore se load ho, usay kholo
+  useEffect(() => {
+    if (!hashPropertyId || resolvedIdRef.current === hashPropertyId) return;
+    const found = properties.find((p) => p.id === hashPropertyId);
+    if (found) {
+      resolvedIdRef.current = found.id;
+      dataStore.recordPropertyView(found.id);
+      setSelectedProperty(found);
+      setCurrentView('property-details');
+    }
+  }, [hashPropertyId, properties]);
+
+  // Property page se bahar jaane par URL se #/property/... hata do
+  useEffect(() => {
+    if (currentView !== 'property-details' && resolvedIdRef.current) {
+      resolvedIdRef.current = null;
+      setHashPropertyId(null);
+      if (window.location.hash.startsWith('#/property/')) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+  }, [currentView]);
+
   // Window scroll to top on view change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -81,6 +123,9 @@ export default function App() {
   const handleSelectProperty = (prop: Property) => {
     // Record genuine view with deduplication
     dataStore.recordPropertyView(prop.id);
+    resolvedIdRef.current = prop.id;
+    setHashPropertyId(prop.id);
+    window.history.pushState(null, '', `#/property/${encodeURIComponent(prop.id)}`);
     setSelectedProperty(prop);
     setCurrentView('property-details');
   };
@@ -302,6 +347,19 @@ export default function App() {
             onOpenReportModal={() => setReportModalOpen(true)}
             onOpenLightbox={handleOpenLightbox}
           />
+        )}
+
+        {/* VIEW: PROPERTY LOADING (shared link) */}
+        {currentView === 'property-details' && !selectedProperty && (
+          <div className="py-24 text-center text-xs text-slate-500">
+            <p>Loading property...</p>
+            <button
+              onClick={() => setCurrentView('search')}
+              className="mt-4 text-emerald-700 font-bold cursor-pointer"
+            >
+              Browse all properties
+            </button>
+          </div>
         )}
 
         {/* VIEW: POST PROPERTY WIZARD */}
